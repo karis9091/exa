@@ -5,34 +5,48 @@ import 'react-toastify/dist/ReactToastify.css';
 import '../assets/css/weatherCard.css';
 
 const WeatherCard = ({ city, weather, temp }) => {
-  const getWeatherIcon = () => {
+  const getWeatherColor = (color) => {
     switch (weather) {
       case 'Clouds':
-        return <FaCloud />;
+        return "grey";
       case 'Clear':
-        return <FaSun />;
+        return "green";
       case 'Snow':
-        return <FaSnowflake />;
+        return "white";
       case 'Rain':
-        return <FaCloudRain />;
+        return "blue";
       default:
-        return <FaSun />;
+        return "yellow";
     }
   };
 
   return (
-  <div className="col-lg-6 text-center col-sm-12 card mt-3 mx-4">
+    <div style={{...styles.container, backgroundColor: getWeatherColor()}}>
     <div className='row'>
-        <div className='col-6 card-body'>
-            <h2 className='city text-center card-title'>{city}</h2>
+        <div className=' card-body'>
+            <h2 style={styles.text}className='city text-center card-title'>{city}</h2>
         </div>
-        <div className='col-6 card-text'>
-            <div className="weather-icon">{getWeatherIcon()}</div>
-            <div className="temp">{temp}°C</div>
+        <div className=' card-text'>           
+            <div style={styles.text}className="temp">{temp}°C</div>
         </div>
     </div>
   </div>
 );
 };
+
+const styles={
+  container:{
+    height: 150,
+    width: 150,
+    //backgroundColor:"blue",
+    borderRadius:20,
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+  },
+  text:{
+    color:"white",
+  }
+}
 
 export default WeatherCard;

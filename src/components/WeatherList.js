@@ -9,14 +9,14 @@ const WeatherList = () => {
   const [weatherData, setWeatherData] = useState([]);
 
   useEffect(() => {
-    const cities = ['Mexicali', 'New York', 'Tokyo', 'Tijuana', 'Tecate'];
+    const cities = ['Mexicali', 'Delaware', 'Michoacan', 'Tijuana', 'Hermosillo'];
     const promises = [];
 
     cities.forEach(city => {
       promises.push(
         axios.get(
           `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${process.env.REACT_APP_OPENWEATHERMAP_API_KEY}`
-        )
+          )
       );
     });
 
@@ -38,10 +38,7 @@ const WeatherList = () => {
     <>
       <div className="container">
         <div className='row'>
-            <div className='col-12 mt-3'>
-                <ButtonPush/>
-            </div>
-            <div className='col-12'>
+            <div style={styles.rowContainer}>
                 {weatherData.map((data, index) => (
                 <WeatherCard
                     key={index}
@@ -51,10 +48,23 @@ const WeatherList = () => {
                 />
                 ))}
             </div>
+            <div className='col-12 mt-3'>
+                <ButtonPush/>
+            </div>
         </div>
       </div>
     </>
   );
 };
-
+const styles={
+  rowContainer:{
+    padding:150,
+    display:"flex",
+    flexDirection:"row",
+    display:"flex",
+    justifyContent:"center",
+    alignItems:"center",
+    gap:30,
+  }
+}
 export default WeatherList;

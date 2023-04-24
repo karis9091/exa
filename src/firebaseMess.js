@@ -17,7 +17,17 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const messaging = getMessaging(app);
-
-export default messaging;
-// export {app};
+export const messaging = getMessaging(app);
+    messaging.onBackgroundMessage(payload=> {
+        console.log("recibiste un mensaje")
+        console.log(payload);
+        const notificationTitle = payload.notification.title;
+        const notificationOptions = {
+            body: payload.notifications.body,
+            icon:"./assets/pp.png"
+        };
+        return self.ServiceWorkerRegistration.showNotification(
+            notificationTitle,
+            notificationOptions
+        );
+    })
